@@ -68,10 +68,10 @@
 				<version>0.8.2</version>
 				<configuration>
 					<excludes>
-						<exclude>**/com/conexia/config/**/*</exclude>
-						<exclude>**/com/conexia/controller/ControllerAdvice.class</exclude>
-						<exclude>**/com/conexia/domain/**/*</exclude>
-						<exclude>**/com/conexia/exception/**/*</exclude>
+						<exclude>**/com/conexia/starwars/config/**/*</exclude>
+						<exclude>**/com/conexia/starwars/controller/ControllerAdvice.class</exclude>
+						<exclude>**/com/conexia/starwars/domain/**/*</exclude>
+						<exclude>**/com/conexia/starwars/exception/**/*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
