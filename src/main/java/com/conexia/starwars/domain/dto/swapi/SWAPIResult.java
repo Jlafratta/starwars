@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 
 @Getter
 public class SWAPIResult {
-    private LinkedHashMap<String, String> properties;
+    private LinkedHashMap<String, Object> properties;
 
     @JsonProperty("uid")
     public void setUid(String id) {
