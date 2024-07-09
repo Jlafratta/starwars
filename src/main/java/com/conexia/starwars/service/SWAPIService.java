@@ -24,20 +24,20 @@ import static com.conexia.starwars.util.SWAPIUtils.getUrlWithFilters;
 
 @Service
 public class SWAPIService {
-    @Value("${swapi.url}")
-    private String apiUrl;
+    private final String apiUrl;
     private final RestTemplate restTemplate;
     private final ObjectMapper om;
 
     @Autowired
-    public SWAPIService(@Qualifier("SWAPIRestTemplate") RestTemplate restTemplate, ObjectMapper objectMapper) {
+    public SWAPIService(@Value("${swapi.url}") String apiUrl, @Qualifier("SWAPIRestTemplate") RestTemplate restTemplate, ObjectMapper om) {
+        this.apiUrl = apiUrl;
         this.restTemplate = restTemplate;
-        this.om = objectMapper;
+        this.om = om;
     }
 
     /*
-     Llamada a la API para obtener los datos en un SWAPIResponse
-     */
+         Llamada a la API para obtener los datos en un SWAPIResponse
+         */
     private SWAPIResponse httpGet(String resource, Integer page, Integer size, Map<String, String> filters) {
         return restTemplate.exchange(
                         getUrlWithFilters(apiUrl + resource, page, size, filters),
@@ -60,7 +60,7 @@ public class SWAPIService {
     /*
      Proceso filtrados requeridos en el endpoint que no son soportados por la API
      */
-    private <T extends BaseEntity> List<T> processUnsupportedFilters(List<T> rows, Map<String, String> filters) {
+    protected  <T extends BaseEntity> List<T> processUnsupportedFilters(List<T> rows, Map<String, String> filters) {
         if (filters.containsKey("id")) {
             Long id = Long.valueOf(filters.get("id"));
             return rows.stream().filter(e -> Objects.equals(e.getId(), id)).collect(Collectors.toList());
