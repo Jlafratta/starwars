@@ -2,6 +2,7 @@ package com.conexia.starwars.service;
 
 import com.conexia.starwars.domain.dto.VehicleDTO;
 import com.conexia.starwars.domain.dto.pagination.PageResult;
+import com.conexia.starwars.exception.SWAPIException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class VehicleService {
         this.swapiService = swapiService;
     }
 
-    public PageResult<VehicleDTO> findAll(Integer page, Integer size, Long id, String name) {
+    public PageResult<VehicleDTO> findAll(Integer page, Integer size, Long id, String name) throws SWAPIException {
         Map<String, String> filters = new HashMap<>();
         if (!isNull(id)) filters.put("id", String.valueOf(id));
         if (!isNull(name)) filters.put("name", name);

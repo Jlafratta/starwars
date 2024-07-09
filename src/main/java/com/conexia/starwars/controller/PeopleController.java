@@ -2,6 +2,7 @@ package com.conexia.starwars.controller;
 
 import com.conexia.starwars.domain.dto.PeopleDTO;
 import com.conexia.starwars.domain.dto.pagination.PageResult;
+import com.conexia.starwars.exception.SWAPIException;
 import com.conexia.starwars.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class PeopleController {
     public ResponseEntity<PageResult<PeopleDTO>> findAll(@RequestParam(required = false, defaultValue = "1") Integer page,
                                                          @RequestParam(required = false, defaultValue = "10") Integer size,
                                                          @RequestParam(required = false) Long id,
-                                                         @RequestParam(required = false) String name) {
+                                                         @RequestParam(required = false) String name) throws SWAPIException {
         return ResponseEntity.ok(peopleService.findAll(page, size, id, name));
     }
 }
