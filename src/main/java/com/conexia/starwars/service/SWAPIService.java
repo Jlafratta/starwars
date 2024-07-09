@@ -1,5 +1,6 @@
 package com.conexia.starwars.service;
 
+import com.conexia.starwars.domain.dto.BaseEntity;
 import com.conexia.starwars.domain.dto.pagination.PageResult;
 import com.conexia.starwars.domain.dto.swapi.SWAPIResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.conexia.starwars.util.SWAPIUtils.getDefaultHttpEntity;
 import static com.conexia.starwars.util.SWAPIUtils.getUrlWithFilters;
@@ -31,7 +34,9 @@ public class SWAPIService {
         this.om = objectMapper;
     }
 
-    // Llamada a la API para obtener los datos en un SWAPIResponse
+    /*
+     Llamada a la API para obtener los datos en un SWAPIResponse
+     */
     private SWAPIResponse httpGet(String resource, Integer page, Integer size, Map<String, String> filters) {
         return restTemplate.exchange(
                         getUrlWithFilters(apiUrl + resource, page, size, filters),
@@ -41,9 +46,20 @@ public class SWAPIService {
                 .getBody();
     }
 
-    public <T> PageResult<T> findAll(@NonNull String resource, Class<T[]> clazz, Integer page, Integer size, Map<String, String> filters) {
+    public <T extends BaseEntity> PageResult<T> findAll(@NonNull String resource, Class<T[]> clazz, Integer page, Integer size, Map<String, String> filters) {
         SWAPIResponse data = httpGet(resource, page, size, filters);
         List<T> rows = Arrays.asList(om.convertValue(data.getResults(), clazz));
-        return new PageResult<>(rows, data.getTotalRecords(), page, size);
+        return new PageResult<>(processUnsupportedFilters(rows, filters), data.getTotalRecords(), page, size);
+    }
+
+    /*
+     Proceso filtrados requeridos en el endpoint que no son soportados por la API
+     */
+    private <T extends BaseEntity> List<T> processUnsupportedFilters(List<T> rows, Map<String, String> filters) {
+        if (filters.containsKey("id")) {
+            Long id = Long.valueOf(filters.get("id"));
+            return rows.stream().filter(e -> Objects.equals(e.getId(), id)).collect(Collectors.toList());
+        }
+        return rows;
     }
 }
