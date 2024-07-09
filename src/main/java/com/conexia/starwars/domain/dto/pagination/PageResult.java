@@ -3,11 +3,8 @@ package com.conexia.starwars.domain.dto.pagination;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import static java.util.Objects.isNull;
 
 @Getter
 @Setter

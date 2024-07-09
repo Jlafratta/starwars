@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +18,7 @@ public class SWAPIResponse {
     private long totalRecords;
     @JsonProperty("total_pages")
     private Integer totalPages;
-    private List<LinkedHashMap<String, String>> results;
+    private List<Object> results;
 
     /*
     Obtengo las properties de las entidades a mapear independientemente de si vienen en results (listado sin filtros)
