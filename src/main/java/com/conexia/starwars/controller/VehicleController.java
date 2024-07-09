@@ -2,6 +2,7 @@ package com.conexia.starwars.controller;
 
 import com.conexia.starwars.domain.dto.VehicleDTO;
 import com.conexia.starwars.domain.dto.pagination.PageResult;
+import com.conexia.starwars.exception.SWAPIException;
 import com.conexia.starwars.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class VehicleController {
     public ResponseEntity<PageResult<VehicleDTO>> findAll(@RequestParam(required = false, defaultValue = "1") Integer page,
                                                           @RequestParam(required = false, defaultValue = "10") Integer size,
                                                           @RequestParam(required = false) Long id,
-                                                          @RequestParam(required = false) String name) {
+                                                          @RequestParam(required = false) String name) throws SWAPIException {
         return ResponseEntity.ok(vehicleService.findAll(page, size, id, name));
     }
 }

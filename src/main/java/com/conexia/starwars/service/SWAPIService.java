@@ -3,6 +3,7 @@ package com.conexia.starwars.service;
 import com.conexia.starwars.domain.dto.BaseEntity;
 import com.conexia.starwars.domain.dto.pagination.PageResult;
 import com.conexia.starwars.domain.dto.swapi.SWAPIResponse;
+import com.conexia.starwars.exception.SWAPIException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +47,14 @@ public class SWAPIService {
                 .getBody();
     }
 
-    public <T extends BaseEntity> PageResult<T> findAll(@NonNull String resource, Class<T[]> clazz, Integer page, Integer size, Map<String, String> filters) {
-        SWAPIResponse data = httpGet(resource, page, size, filters);
-        List<T> rows = Arrays.asList(om.convertValue(data.getResults(), clazz));
-        return new PageResult<>(processUnsupportedFilters(rows, filters), data.getTotalRecords(), page, size);
+    public <T extends BaseEntity> PageResult<T> findAll(@NonNull String resource, Class<T[]> clazz, Integer page, Integer size, Map<String, String> filters) throws SWAPIException {
+        try {
+            SWAPIResponse data = httpGet(resource, page, size, filters);
+            List<T> rows = Arrays.asList(om.convertValue(data.getResults(), clazz));
+            return new PageResult<>(processUnsupportedFilters(rows, filters), data.getTotalRecords(), page, size);
+        } catch (Exception e) {
+            throw new SWAPIException("External API error obtaining list from " + resource, e);
+        }
     }
 
     /*
