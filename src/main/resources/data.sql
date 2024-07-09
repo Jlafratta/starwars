@@ -1,1 +1,1 @@
-select 1;
+insert into users(api_key, token) values ('conexia_api', '$2a$10$SI/wZ.plvoocLKUUzJocyuCymVJxTFwgsRJN0QC6rW6CLx1dGBPJq')
