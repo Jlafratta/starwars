@@ -1,6 +1,5 @@
 package com.conexia.starwars.controller;
 
-import com.conexia.starwars.domain.dto.PeopleDTO;
 import com.conexia.starwars.domain.dto.StarshipDTO;
 import com.conexia.starwars.domain.dto.pagination.PageResult;
 import com.conexia.starwars.service.StarshipService;

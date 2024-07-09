@@ -1,9 +1,7 @@
 package com.conexia.starwars.controller;
 
-import com.conexia.starwars.domain.dto.PeopleDTO;
 import com.conexia.starwars.domain.dto.VehicleDTO;
 import com.conexia.starwars.domain.dto.pagination.PageResult;
-import com.conexia.starwars.service.PeopleService;
 import com.conexia.starwars.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

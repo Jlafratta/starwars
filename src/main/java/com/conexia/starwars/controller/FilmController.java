@@ -1,10 +1,8 @@
 package com.conexia.starwars.controller;
 
 import com.conexia.starwars.domain.dto.FilmDTO;
-import com.conexia.starwars.domain.dto.PeopleDTO;
 import com.conexia.starwars.domain.dto.pagination.PageResult;
 import com.conexia.starwars.service.FilmService;
-import com.conexia.starwars.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

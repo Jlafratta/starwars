@@ -1,7 +1,6 @@
 package com.conexia.starwars.service;
 
 import com.conexia.starwars.domain.dto.FilmDTO;
-import com.conexia.starwars.domain.dto.PeopleDTO;
 import com.conexia.starwars.domain.dto.pagination.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
