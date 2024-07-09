@@ -3,9 +3,11 @@ package com.conexia.starwars.controller;
 import com.conexia.starwars.domain.dto.ErrorResponseDTO;
 import com.conexia.starwars.domain.enumeration.ErrorTypeEnum;
 import com.conexia.starwars.exception.SWAPIException;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -30,5 +32,11 @@ public class ControllerAdvice {
     protected ErrorResponseDTO handleGenericException(Exception e) {
         logger.error("Error en el servidor ", e);
         return new ErrorResponseDTO(500, ErrorTypeEnum.SERVER, e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(value = {ExpiredJwtException.class, AuthenticationException.class})
+    protected ErrorResponseDTO handleUnauthorizedException(RuntimeException e) {
+        return new ErrorResponseDTO(401, ErrorTypeEnum.AUTH, e.getMessage());
     }
 }

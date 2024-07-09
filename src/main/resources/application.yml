@@ -4,3 +4,22 @@ server:
 
 swapi:
   url: https://swapi.tech/api/
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:starwars
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+jwt:
+  secret: conexiaSuperSecretTokenForChallenge
