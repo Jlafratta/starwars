@@ -33,7 +33,7 @@ class FilmControllerTests {
     @MockBean
     private FilmService filmService;
 
-    FilmController filmController;
+    private FilmController filmController;
 
     @BeforeEach
     public void setUp() {
