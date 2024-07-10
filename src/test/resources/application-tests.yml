@@ -1,2 +1,5 @@
 swapi:
   url: https://swapi.tech/api/
+
+apiKey: conexia_api
+token: eyJzdWIiOiJhbGVhZG1pbiIsImV4cCI6MTYzMTY0ODY1MSwiaWF0IjoxNjMxNjMwNjUxfQ

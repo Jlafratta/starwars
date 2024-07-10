@@ -4,14 +4,19 @@ import com.conexia.starwars.domain.dto.FilmDTO;
 import com.conexia.starwars.domain.dto.pagination.PageResult;
 import com.conexia.starwars.exception.SWAPIException;
 import com.conexia.starwars.service.FilmService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,10 +25,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@TestPropertySource(locations = "classpath:application-tests.yml")
 @AutoConfigureMockMvc
 class FilmControllerTests {
 
@@ -33,6 +40,12 @@ class FilmControllerTests {
     @MockBean
     private FilmService filmService;
 
+    @Value("${apiKey}")
+    String apiKey;
+
+    @Value("${token}")
+    String token;
+
     private FilmController filmController;
 
     @BeforeEach
@@ -40,8 +53,24 @@ class FilmControllerTests {
         this.filmController = new FilmController(filmService);
     }
 
+    private String obtainJwtToken() throws Exception {
+        // POST al endpoint de autenticación para obtener un token JWT
+        MvcResult result = mockMvc.perform(post("/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"apiKey\": \"" + this.apiKey + "\", \"token\": \"" + this.token + "\"}")
+                ).andExpect(status().isOk())
+                .andReturn();
+
+        // retorno el jwtToken
+        String response = result.getResponse().getContentAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readTree(response).get("jwtToken").asText();
+    }
+
     @Test
     public void testGetFilmsWithoutFiltersOk() throws Exception, SWAPIException {
+        String token = obtainJwtToken();
+
         // Mock objs
         List<FilmDTO> filmList = new ArrayList<>();
         filmList.add(getFristFilmDTO());
@@ -65,11 +94,14 @@ class FilmControllerTests {
         mockMvc.perform(get("/film")
                 .param("page", String.valueOf(page))
                 .param("size", String.valueOf(size))
+                .header("Authorization", token)
         ).andExpect(status().isOk());
     }
 
     @Test
     public void testGetFilmsWithTitleAndIdFiltersOk() throws Exception, SWAPIException {
+        String token = obtainJwtToken();
+
         // Mock objs
         List<FilmDTO> filmList = new ArrayList<>();
         FilmDTO film = getFristFilmDTO();
@@ -97,11 +129,14 @@ class FilmControllerTests {
                 .param("size", String.valueOf(size))
                 .param("id", String.valueOf(id))
                 .param("title", title)
+                .header("Authorization", token)
         ).andExpect(status().isOk());
     }
 
     @Test
     public void testGetFilmsWithoutFiltersInternalServerError() throws SWAPIException, Exception {
+        String token = obtainJwtToken();
+
         // Mock objs
         int page = 1;
         int size = 10;
@@ -121,7 +156,8 @@ class FilmControllerTests {
         // Llamada al endpoint con HttpStatus esperado
         mockMvc.perform(get("/film")
                         .param("page", String.valueOf(page))
-                        .param("size", String.valueOf(size)))
+                        .param("size", String.valueOf(size))
+                        .header("Authorization", token))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json("{'code':3312,'errorType':'EXTERNAL_API','message':'External API error'}"));
     }
