@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "90fdffdb-d8ea-4395-be57-e5324c535267",
+		"name": "StarWars",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12139880"
+	},
+	"item": [
+		{
+			"name": "People",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25leGlhX2FwaSIsImV4cCI6MTcyMDU4NDkzOCwiaWF0IjoxNzIwNTY2OTM4fQ.YiGrMmjz8TXG51_cT90sRj4BpfG7bEGVaY-xFGsVqqhb-QFhayzGKx5pI_N7gf1w4F59u5NmMteF0VhXUuhhGw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/people?name=r&page=1&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"people"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "r"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "id",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Starship",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25leGlhX2FwaSIsImV4cCI6MTcyMDU4NDkzOCwiaWF0IjoxNzIwNTY2OTM4fQ.YiGrMmjz8TXG51_cT90sRj4BpfG7bEGVaY-xFGsVqqhb-QFhayzGKx5pI_N7gf1w4F59u5NmMteF0VhXUuhhGw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/starship?name=star&page=1&size=10&id=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"starship"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "star"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicle",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25leGlhX2FwaSIsImV4cCI6MTcyMDU4NDkzOCwiaWF0IjoxNzIwNTY2OTM4fQ.YiGrMmjz8TXG51_cT90sRj4BpfG7bEGVaY-xFGsVqqhb-QFhayzGKx5pI_N7gf1w4F59u5NmMteF0VhXUuhhGw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/vehicle?name=T-16&page=1&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vehicle"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "T-16"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Film",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25leGlhX2FwaSIsImV4cCI6MTcyMDU4NDkzOCwiaWF0IjoxNzIwNTY2OTM4fQ.YiGrMmjz8TXG51_cT90sRj4BpfG7bEGVaY-xFGsVqqhb-QFhayzGKx5pI_N7gf1w4F59u5NmMteF0VhXUuhhGw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/film?title=Attack&page=1&size=10&id=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"film"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Attack"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"apiKey\": \"conexia_api\",\r\n    \"token\": \"eyJzdWIiOiJhbGVhZG1pbiIsImV4cCI6MTYzMTY0ODY1MSwiaWF0IjoxNjMxNjMwNjUxfQ\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
