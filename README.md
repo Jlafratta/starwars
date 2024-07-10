@@ -30,6 +30,7 @@ StarWars API Project
     -  [X] La aplicación debe estar bien documentada, incluyendo instrucciones para la configuración y uso del sistema.
     -  [X] La documentación del código debe ser clara y detallada.
     - Quedo pendiente por falta de tiempo agregar Swagger para una correcta documentacion de la API
+    - Se agrego la collection de Postman para poder realizar pruebas
     <hr>
 6. **Pruebas Unitarias y de Integración:**
    <br><br>
